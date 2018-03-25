@@ -1,0 +1,13 @@
+language: python
+cache:
+  - pip
+python:
+  - 3.6
+install:
+  - pip install -U setuptools
+  - pip install -r requirements.txt
+script:
+  - flake8
+  - isort
+notification:
+  email: false

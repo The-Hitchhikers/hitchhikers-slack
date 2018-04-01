@@ -1,7 +1,9 @@
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 from hooks.helpers import ResponseProcess
+from slackhook import SlackWebHook
 
 app = Flask(__name__)
+slack = SlackWebHook(app, '/hitch-slack')
 
 
 @app.route('/')
@@ -9,8 +11,7 @@ def index():
     return jsonify({'data': {'status': 'OK'}})
 
 
-@app.route('/hitch-slack', methods=['POST'])
-def slack_webhook():
-    text = request.form.get('text', '')
-    response = ResponseProcess(text)
+@slack.hook()
+def slack_webhook(data):
+    response = ResponseProcess(data)
     return jsonify(text=response.make_response())

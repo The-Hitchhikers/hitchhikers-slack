@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from hooks.helpers import ResponseProcess
-from slackhook import SlackWebHook
+from slackhook.hook import SlackWebHook
 
 app = Flask(__name__)
 slack = SlackWebHook(app, '/hitch-slack')
